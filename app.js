@@ -3,12 +3,20 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var db = require('./db');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+db.connect(function(err) {
+    if (err) {
+        console.log('Unable to connect to MySQL.');
+        process.exit(1);
+    }
+});
 
 app.use(logger('dev'));
 app.use(express.json());
