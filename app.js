@@ -4,9 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-
 var app = express();
 
 // view engine setup
@@ -19,8 +16,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// member.js, food.js, keep.js 파일을 routes 디렉터리에 생성해야 함.
+app.use('/member', require('./routes/member'));
+app.use('/food', require('./routes/food'));
+app.use('/keep', require('./routes/keep'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
